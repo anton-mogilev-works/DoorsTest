@@ -20,18 +20,21 @@
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span>Параметры</span>
                 </h4>
-                <form>
+                <form action="/doorParams" method="post">
+                    @csrf
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Цвет покраски:</h6>
                             </div>
                             <span>
-                                <select class="custom-select" id="painting-color" required>
+                                <select class="custom-select" name="painting-color" id="painting-color" required>
                                     <option value="">Выбор...</option>
-                                    <option data-painting-color="#8B0000" data-price="50" value="50">Красный</option>
+                                    <option data-painting-color="#8B0000" data-price="50" value="50">Красный
+                                    </option>
                                     <option data-painting-color="#00008B" data-price="60" value="60">Синий</option>
-                                    <option data-painting-color="#006400" data-price="70" value="70">Зелёный</option>
+                                    <option data-painting-color="#006400" data-price="70" value="70">Зелёный
+                                    </option>
                                     <option data-painting-color="#FFD700" data-price="80" value="80">Жёлтый</option>
                                 </select>
                             </span>
@@ -43,7 +46,7 @@
 
                             </div>
                             <span>
-                                <select class="custom-select" id="skin-color" required>
+                                <select class="custom-select" name="skin-color" id="skin-color" required>
                                     <option value="">Выбор...</option>
                                     <option data-skin-color="#8B0000" data-price="20" value="50">Красный</option>
                                     <option data-skin-color="#00008B" data-price="30" value="60">Синий</option>
@@ -60,10 +63,14 @@
                             <span>
                                 <select class="custom-select" id="doorhandle-color" required>
                                     <option value="">Выбор...</option>
-                                    <option data-doorhandle-color="#8B0000" data-price="40" value="40">Красный</option>
-                                    <option data-doorhandle-color="#00008B" data-price="40" value="40">Синий</option>
-                                    <option data-doorhandle-color="#006400" data-price="40" value="40">Зелёный</option>
-                                    <option data-doorhandle-color="#FFD700" data-price="40" value="40">Жёлтый</option>
+                                    <option data-doorhandle-color="#8B0000" data-price="40" value="40">Красный
+                                    </option>
+                                    <option data-doorhandle-color="#00008B" data-price="40" value="40">Синий
+                                    </option>
+                                    <option data-doorhandle-color="#006400" data-price="40" value="40">Зелёный
+                                    </option>
+                                    <option data-doorhandle-color="#FFD700" data-price="40" value="40">Жёлтый
+                                    </option>
                                 </select>
                             </span>
                         </li>
@@ -176,8 +183,8 @@
     <script src="/js/holder.min.js"></script>
     <script src="/js/html2canvas.min.js"></script>
     <script>
-        $(window).on("load", function () {
-            $('select#painting-color').change(function () {
+        $(window).on("load", function() {
+            $('select#painting-color').change(function() {
                 var paintingColor = $(this).find(':selected').data('painting-color');
                 if (typeof paintingColor !== "undefined") {
                     $('div#door-outside').css('border-color', paintingColor);
@@ -185,7 +192,7 @@
                 }
             });
 
-            $('select#skin-color').change(function () {
+            $('select#skin-color').change(function() {
                 var skinColor = $(this).find(':selected').data('skin-color');
                 if (typeof skinColor !== "undefined") {
                     $('div#door-outside').css('background-color', skinColor);
@@ -193,29 +200,29 @@
                 }
             });
 
-            $('select#doorhandle-color').change(function () {
+            $('select#doorhandle-color').change(function() {
                 var doorhandleColor = $(this).find(':selected').data('doorhandle-color');
                 if (typeof doorhandleColor !== "undefined") {
                     $('div.doorhandle').css('background-color', doorhandleColor);
                 }
             });
 
-            $('button#sumbit-doors-params').click(function () {
+            $('button#sumbit-doors-params').click(function() {
                 html2canvas(document.getElementById("doors-maket"), {
-                    allowTaint: true,
-                    useCORS: true,
-                })
-                    .then(function (canvas) {
+                        allowTaint: true,
+                        useCORS: true,
+                    })
+                    .then(function(canvas) {
                         // window.open('', canvas.toDataURL("image/png", 0.5));
                         // window.open('', 'hello');
                         // let image = canvas.toDataURL("image/png", 0.5);
                         console.log(canvas.toDataURL("image/png"));
                     })
-                    .catch((e) => {            
+                    .catch((e) => {
                         console.log(e);
                     });
             });
-            
+
         });
     </script>
 </body>
