@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Магазин дверей</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap4.min.css" rel="stylesheet">
     <link href="/css/form-validation.css" rel="stylesheet">
 </head>
 
@@ -177,9 +177,9 @@
         </footer>
     </div>
 
-    <script src="/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap4.min.js"></script>
     <script src="/js/holder.min.js"></script>
     <script src="/js/html2canvas.min.js"></script>
     <script>
