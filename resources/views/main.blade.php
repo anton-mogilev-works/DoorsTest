@@ -20,7 +20,7 @@
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span>Параметры</span>
                 </h4>
-                <form action="/doorParams" method="post">
+                <form action="/doorParams" method="post" id="doorParamsForm">
                     @csrf
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -28,14 +28,16 @@
                                 <h6 class="my-0">Цвет покраски:</h6>
                             </div>
                             <span>
-                                <select class="custom-select" name="painting-color" id="painting-color" required>
+                                <select class="custom-select" name="dyeingColor" id="dyeing-color" required>
                                     <option value="">Выбор...</option>
-                                    <option data-painting-color="#8B0000" data-price="50" value="50">Красный
-                                    </option>
-                                    <option data-painting-color="#00008B" data-price="60" value="60">Синий</option>
-                                    <option data-painting-color="#006400" data-price="70" value="70">Зелёный
-                                    </option>
-                                    <option data-painting-color="#FFD700" data-price="80" value="80">Жёлтый</option>
+                                    @isset($dyeings)
+                                        @foreach ($dyeings as $dyeing)
+                                            <option data-dyeing-color="{{ $dyeing->value }}"
+                                                data-price="{{ $dyeing->price }}" value="{{ $dyeing->id }}">
+                                                {{ $dyeing->name }}
+                                            </option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </span>
 
@@ -46,12 +48,16 @@
 
                             </div>
                             <span>
-                                <select class="custom-select" name="skin-color" id="skin-color" required>
+                                <select class="custom-select" name="skinColor" id="skin-color" required>
                                     <option value="">Выбор...</option>
-                                    <option data-skin-color="#8B0000" data-price="20" value="50">Красный</option>
-                                    <option data-skin-color="#00008B" data-price="30" value="60">Синий</option>
-                                    <option data-skin-color="#006400" data-price="40" value="70">Зелёный</option>
-                                    <option data-skin-color="#FFD700" data-price="50" value="80">Жёлтый</option>
+
+                                    @isset($skins)
+                                        @foreach ($skins as $skin)
+                                            <option data-skin-color="{{ $skin->value }}" data-price="{{ $skin->price }}"
+                                                value="{{ $skin->id }}">{{ $skin->name }}
+                                            </option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </span>
                         </li>
@@ -61,16 +67,17 @@
 
                             </div>
                             <span>
-                                <select class="custom-select" id="doorhandle-color" required>
+                                <select class="custom-select" id="knob-color" name="knobColor" required>
                                     <option value="">Выбор...</option>
-                                    <option data-doorhandle-color="#8B0000" data-price="40" value="40">Красный
-                                    </option>
-                                    <option data-doorhandle-color="#00008B" data-price="40" value="40">Синий
-                                    </option>
-                                    <option data-doorhandle-color="#006400" data-price="40" value="40">Зелёный
-                                    </option>
-                                    <option data-doorhandle-color="#FFD700" data-price="40" value="40">Жёлтый
-                                    </option>
+
+                                    @isset($knobs)
+                                        @foreach ($knobs as $knob)
+                                            <option data-knob-color="{{ $knob->value }}" data-price="{{ $knob->price }}"
+                                                value="{{ $knob->id }}">{{ $knob->name }}
+                                            </option>
+                                        @endforeach
+                                    @endisset
+
                                 </select>
                             </span>
                         </li>
@@ -79,14 +86,14 @@
                                 <h6 class="my-0">Ширина:</h6>
                             </div>
                             <span>
-                                <select class="custom-select" id="door-width" required>
+                                <select class="custom-select" name="doorWidth" id="door-width" required>
                                     <option value="">Выбор...</option>
-                                    <option value="500" data-width="700">700 мм.</option>
-                                    <option value="550" data-width="750">750 мм.</option>
-                                    <option value="600" data-width="800">800 мм.</option>
-                                    <option value="650" data-width="850">850 мм.</option>
-                                    <option value="700" data-width="900">900 мм.</option>
-                                    <option value="750" data-width="700">950 мм.</option>
+                                    @isset($widthDimensions)
+                                        @foreach ($widthDimensions as $widthDim)
+                                            <option data-width="{{ $widthDim->value }}" value="{{ $widthDim->id }}">
+                                                {{ $widthDim->value }} мм.</option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </span>
                         </li>
@@ -96,14 +103,15 @@
 
                             </div>
                             <span>
-                                <select class="custom-select" id="door-height" required>
+                                <select class="custom-select" name="doorHeight" id="door-height" required>
                                     <option value="">Выбор...</option>
-                                    <option value="1800" data-height="1800">1800 мм.</option>
-                                    <option value="1900" data-height="1900">1900 мм.</option>
-                                    <option value="1200" data-height="2000">2000 мм.</option>
-                                    <option value="1300" data-height="2100">2100 мм.</option>
-                                    <option value="1400" data-height="2200">2200 мм.</option>
-                                    <option value="1500" data-height="2300">2300 мм.</option>
+                                    @isset($heightDimensions)
+                                        @foreach ($heightDimensions as $heightDim)
+                                            <option data-height="{{ $heightDim->value }}" value="{{ $heightDim->id }}">
+                                                {{ $heightDim->value }} мм.</option>
+                                        @endforeach
+                                    @endisset
+
                                 </select>
                             </span>
                         </li>
@@ -113,10 +121,14 @@
 
                             </div>
                             <span>
-                                <select class="custom-select" id="opening-side" required>
+                                <select class="custom-select" name="openingSide" id="opening-side" required>
                                     <option value="">Выбор...</option>
-                                    <option value="0">Левое</option>
-                                    <option value="1">Правое</option>
+                                    @isset($openingSides)
+                                        @foreach ($openingSides as $openingSide)
+                                            <option data-opening-side="{{ $openingSide->value }}"
+                                                value="{{ $openingSide->id }}">{{ $openingSide->name }}</option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </span>
                         </li>
@@ -125,23 +137,30 @@
                                 <h6 class="my-0">Аксессуары:</h6>
                             </div>
                             <span>
-                                <select class="custom-select" id="accessories" required>
-                                    <option value="">Выбор...</option>
-                                    <option>Свет</option>
-                                    <option>Геркон</option>
+                                <select class="custom-select" multiple name="accessories[]" id="accessories" required>
+                                    @isset($accessories)
+                                        @foreach ($accessories as $accessory)
+                                            <option data-price="{{ $accessory->price }}" value="{{ $accessory->id }}">
+                                                {{ $accessory->name }}</option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                             </span>
                         </li>
+
+                        <input type="hidden" name="image" id="imageField" value="" />
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Итого:</span>
-                            <strong>$20<span> руб.</span></strong>
+                            <strong id="summ">0</strong><span> руб.</span>
                         </li>
                     </ul>
-                    <div class="input-group">
-                        <button class="btn btn-primary btn-lg btn-block" id="sumbit-doors-params">Отправить
-                            комплектацию</button>
-                    </div>
+
                 </form>
+                <div class="input-group">
+                    <button class="btn btn-primary btn-lg btn-block" id="sumbit-doors-params">Отправить
+                        комплектацию</button>
+                </div>
             </div>
 
 
@@ -152,7 +171,7 @@
                         <div class="col-md-6 mb-3">
                             <div id="door-outside"
                                 style="border: 10pt solid; background-color: #eee; width: 200pt; height: 400pt;">
-                                <div class="doorhandle"
+                                <div class="knob"
                                     style="background-color: #aaa; margin: 160pt 20pt; width: 40pt; height: 10pt;">
                                 </div>
                             </div>
@@ -161,7 +180,7 @@
                         <div class="col-md-6 mb-3">
                             <div id="door-inside"
                                 style="border: 10pt solid; background-color: #eee; width: 200pt; height: 400pt;">
-                                <div class="doorhandle"
+                                <div class="knob"
                                     style="background-color: #aaa; margin: 160pt 120pt; width: 40pt; height: 10pt;">
                                 </div>
                             </div>
@@ -172,7 +191,7 @@
             </div>
         </div>
 
-        <footer class="my-5 pt-5 text-muted text-center text-small">
+        <footer class="pt-5 text-muted text-center text-small">
             <p class="mb-1">2023 Тестовое задание</p>
         </footer>
     </div>
@@ -183,13 +202,33 @@
     <script src="/js/holder.min.js"></script>
     <script src="/js/html2canvas.min.js"></script>
     <script>
+        function calculate() {
+            var summ = 0;
+            var dyeingColorPrice = $('select#dyeing-color').find(':selected').data('price');
+            var skinColorPrice = $('select#skin-color').find(':selected').data('price');
+            var knobColorPrice = $('select#knob-color').find(':selected').data('price');
+
+            if (typeof dyeingColorPrice !== 'undefined' &&
+                typeof skinColorPrice !== 'undefined' &&
+                typeof knobColorPrice !== 'undefined'
+            ) {
+                summ = dyeingColorPrice + skinColorPrice + knobColorPrice;
+                $('strong#summ').text(summ.toString());
+            } else {
+                $('strong#summ').text('');
+            }
+
+        }
+
         $(window).on("load", function() {
-            $('select#painting-color').change(function() {
-                var paintingColor = $(this).find(':selected').data('painting-color');
-                if (typeof paintingColor !== "undefined") {
-                    $('div#door-outside').css('border-color', paintingColor);
-                    $('div#door-inside').css('border-color', paintingColor);
+
+            $('select#dyeing-color').change(function() {
+                var dyeingColor = $(this).find(':selected').data('dyeing-color');
+                if (typeof dyeingColor !== "undefined") {
+                    $('div#door-outside').css('border-color', dyeingColor);
+                    $('div#door-inside').css('border-color', dyeingColor);
                 }
+                calculate();
             });
 
             $('select#skin-color').change(function() {
@@ -198,13 +237,15 @@
                     $('div#door-outside').css('background-color', skinColor);
                     $('div#door-inside').css('background-color', skinColor);
                 }
+                calculate();
             });
 
-            $('select#doorhandle-color').change(function() {
-                var doorhandleColor = $(this).find(':selected').data('doorhandle-color');
-                if (typeof doorhandleColor !== "undefined") {
-                    $('div.doorhandle').css('background-color', doorhandleColor);
+            $('select#knob-color').change(function() {
+                var knobColor = $(this).find(':selected').data('knob-color');
+                if (typeof knobColor !== "undefined") {
+                    $('div.knob').css('background-color', knobColor);
                 }
+                calculate();
             });
 
             $('button#sumbit-doors-params').click(function() {
@@ -213,10 +254,8 @@
                         useCORS: true,
                     })
                     .then(function(canvas) {
-                        // window.open('', canvas.toDataURL("image/png", 0.5));
-                        // window.open('', 'hello');
-                        // let image = canvas.toDataURL("image/png", 0.5);
-                        console.log(canvas.toDataURL("image/png"));
+                        $('input#imageField').val(canvas.toDataURL("image/png"));
+                        $('form#doorParamsForm').submit();
                     })
                     .catch((e) => {
                         console.log(e);

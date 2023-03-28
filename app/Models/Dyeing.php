@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Dyeing extends Model
 {
     use HasFactory;
+    
+    public function doors()
+    {
+        return $this->hasMany(Door::class);
+    }
 }

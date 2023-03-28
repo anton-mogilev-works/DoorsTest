@@ -15,6 +15,9 @@ class CreateKnobsTable extends Migration
     {
         Schema::create('knobs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('value');
+            $table->decimal('price');
             $table->timestamps();
         });
     }
