@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PDFHelper;
+use App\Helpers\TelegramHelper;
 use App\Models\Accessory;
 use App\Models\Door;
 use App\Models\Dyeing;
@@ -58,6 +60,9 @@ class UserController extends Controller
         }       
 
         $door->save();
+
+        $file_path = PDFHelper::makeDoorPDF($door, false);
+        TelegramHelper::sendFile($file_path);
 
         return redirect('/');
     }

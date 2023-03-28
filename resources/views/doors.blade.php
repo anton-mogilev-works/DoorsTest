@@ -23,6 +23,7 @@
                                 <th>Ширина</th>
                                 <th>Высота</th>
                                 <th>Открывание</th>
+                                <th>Аксессуары</th>
                                 <th>Сумма</th>
                                 {{-- <th>Сумма</th> --}}
                                 <th></th>
@@ -39,8 +40,9 @@
                                     <td>{{ $door->widthDimension->value }} мм.</td>
                                     <td>{{ $door->heightDimension->value }} мм.</td>
                                     <td>{{ $door->openingSide->name }}</td>
-                                    <td>500 р.</td>
-                                    {{-- <td>{{ $door->price }} руб. </td> --}}
+                                    <td>{{ $door->accessoriesList() }}</td>
+                                    <td>{{ $door->summ() }} руб.</td>
+                                    
 
                                     <td class="text-end">
                                         <a href="" class="btn btn-outline-info btn-rounded"><i
@@ -87,6 +89,8 @@
                                                     Ширина -- {{ $door->widthDimension->value }} мм. <br />
                                                     Высота - {{ $door->heightDimension->value }} мм. <br />
                                                     Открывание -- {{ $door->openingSide->name }} <br />
+                                                    Аксессуары -- {{ $door->accessoriesList() }} <br />
+                                                    Сумма -- {{ $door->summ() }} <br />
 
 
                                                     {{-- <form action="/dashboard/skinAdd" method="post" accept-charset="utf-8">

@@ -30,9 +30,7 @@ class AdminController extends Controller
     {
         try {
             $door = Door::find($id);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             echo 'Данные по двери с номером ' . $id . ' не найдены';
             return;
         }
@@ -45,18 +43,16 @@ class AdminController extends Controller
 
         try {
             $door = Door::find($id);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             echo 'Данные по двери с номером ' . $id . ' не найдены';
             return;
         }
 
         $file_path = PDFHelper::makeDoorPDF($door, false);
-        
-        TelegramHelper::sendFile($file_path);        
 
-    }    
+        TelegramHelper::sendFile($file_path);
+
+    }
 
     public function dyeings()
     {

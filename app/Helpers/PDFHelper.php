@@ -33,6 +33,8 @@ class PDFHelper
         $text[] = 'Цвет ручки    : ' . $door->knob->name;
         $text[] = 'Ширина        : ' . $door->widthDimension->value . ' мм.';
         $text[] = 'Высота        : ' . $door->heightDimension->value . ' мм.';
+        $text[] = 'Аксессуары    : ' . $door->accessoriesList();
+        $text[] = 'Сумма         : ' . $door->summ() . ' руб.';
 
         $fontPath = '/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf';
 

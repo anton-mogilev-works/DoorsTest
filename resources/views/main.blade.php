@@ -158,7 +158,8 @@
 
                 </form>
                 <div class="input-group">
-                    <button class="btn btn-primary btn-lg btn-block" id="sumbit-doors-params">Отправить
+                    <button style="visibility: hidden;" class="btn btn-primary btn-lg btn-block"
+                        id="sumbit-doors-params">Отправить
                         комплектацию</button>
                 </div>
             </div>
@@ -208,16 +209,36 @@
             var skinColorPrice = $('select#skin-color').find(':selected').data('price');
             var knobColorPrice = $('select#knob-color').find(':selected').data('price');
 
+            var accessoriesPrice = 0;
+
+            $('select#accessories').find(':selected').each(function() {
+                accessoriesPrice += $(this).data('price');
+            });
+
             if (typeof dyeingColorPrice !== 'undefined' &&
                 typeof skinColorPrice !== 'undefined' &&
-                typeof knobColorPrice !== 'undefined'
+                typeof knobColorPrice !== 'undefined' &&
+                typeof accessoriesPrice !== 'undefined'
             ) {
-                summ = dyeingColorPrice + skinColorPrice + knobColorPrice;
+                summ = dyeingColorPrice + skinColorPrice + knobColorPrice + accessoriesPrice;
                 $('strong#summ').text(summ.toString());
             } else {
                 $('strong#summ').text('');
             }
 
+            if (
+                $('select#dyeing-color').find(':selected').val() != '' &&
+                $('select#skin-color').find(':selected').val() != '' &&
+                $('select#knob-color').find(':selected').val() != '' &&
+                $('select#door-width').find(':selected').val() != '' &&
+                $('select#door-height').find(':selected').val() != '' &&                
+                $('select#opening-side').find(':selected').val() != '' &&
+                $('select#accessories').find(':selected').length > 0
+            ) {
+                $('button#sumbit-doors-params').css('visibility', 'visible');
+            } else {
+                $('button#sumbit-doors-params').css('visibility', 'hidden');
+            }
         }
 
         $(window).on("load", function() {
@@ -245,6 +266,34 @@
                 if (typeof knobColor !== "undefined") {
                     $('div.knob').css('background-color', knobColor);
                 }
+                calculate();
+            });
+
+            $('select#opening-side').change(function() {
+                //data-opening-side
+
+                var openingSide = $(this).find(':selected').data('opening-side');
+                if (typeof openingSide !== "undefined") {
+                    if (openingSide == '0') {
+                        $('div#door-inside div.knob').css('margin', '160pt 120pt');
+                        $('div#door-outside div.knob').css('margin', '160pt 20pt');
+                    } else if (openingSide == '1') {
+                        $('div#door-inside div.knob').css('margin', '160pt 20pt');
+                        $('div#door-outside div.knob').css('margin', '160pt 120pt');
+                    }
+                }
+                calculate();
+            });
+
+            $('select#door-width').change(function() {
+                calculate();
+            });
+
+            $('select#door-height').change(function() {
+                calculate();
+            });
+
+            $('select#accessories').change(function() {
                 calculate();
             });
 

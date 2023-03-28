@@ -43,4 +43,31 @@ class Door extends Model
     {
         return $this->belongsToMany(Accessory::class, 'door_accessory', 'door_id', 'accessory_id');
     }
+
+    public function accessoriesList(): string
+    {
+        $res = [];
+        foreach ($this->accessories as $acc) {
+            $res[] = $acc->name;
+        }
+
+        return implode(', ', $res);
+    }
+
+    public function summ(): int
+    {
+        $summ = 0;
+        $summ += $this->dyeing->price;
+        $summ += $this->skin->price;
+        $summ += $this->knob->price;
+
+        foreach($this->accessories as $acc)
+        {
+            $summ += $acc->price;
+        }
+
+        return $summ;
+    }
+
+
 }
